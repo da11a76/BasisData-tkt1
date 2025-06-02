@@ -2,7 +2,7 @@ CREATE TABLE BpsPusat(
 	kodeSakernas VARCHAR(45) PRIMARY KEY,
 	idPusat INTEGER NOT NULL,
 	alamatKantor VARCHAR(50) NOT NULL,
-	nomorTelepon VARCHAR(13) NOT NULL,
+	nomorTelepon VARCHAR(13) NOT NULL
 	);
 CREATE TABLE BpsProvinsi(
 	kodeProv CHAR(2) PRIMARY KEY,
@@ -27,7 +27,7 @@ CREATE TABLE kortek_zonaMerah (
 	kodeKab_Kota CHAR(9),
 	kode_ketua_sls CHAR(10) NOT NULL,
 	namaKortek VARCHAR(10) NOT NULL,
-	PRIMARY KEY(kodeKortek, kodeKab_Kota)
+	PRIMARY KEY(kodeKortek, kodeKab_Kota),
 	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
 	FOREIGN KEY(kode_ketua_sls) REFERENCES sls(kode_ketua_sls)ON UPDATE CASCADE
 	);
@@ -35,7 +35,7 @@ CREATE TABLE PML(
 	kode_pengawas VARCHAR(10),
 	kodeKab_Kota CHAR(9),
 	nama_pengawas VARCHAR(10) NOT NULL,
-	nomor_ketua_sls CHAR(10) NOT NULL
+	nomor_ketua_sls CHAR(10) NOT NULL,
 	PRIMARY KEY(kode_pengawas, kodeKab_Kota)ON UPDATE CASCADE,
 	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE
 	);
