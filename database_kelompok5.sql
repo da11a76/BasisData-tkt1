@@ -16,7 +16,6 @@ CREATE TABLE BpsKab_Kota(
 	kodeKab_Kota CHAR(9),
 	kodeProv CHAR(2),
 	namaKab_Kota VARCHAR(20) NOT NULL,
-	kode_pengawas VARCHAR(10) NOT NULL,
 	PRIMARY KEY(kodeKab_Kota, kodeProv),
 	FOREIGN KEY(kodeProv) REFERENCES BpsProvinsi(kodeProv)
 		ON UPDATE CASCADE
@@ -69,16 +68,6 @@ CREATE TABLE blokSensus(
 		ON UPDATE CASCADE
 		ON DELETE SET NULL
 	);
-CREATE TABLE kortekPCL(
-	kodeKortek VARCHAR(10),
-	kode_pencacahKortek VARCHAR(10),
-	kodeKab_Kota CHAR(9),
-	kodeProv CHAR(2),
-	PRIMARY KEY(kodeKortek, kode_pencacahKortek),
-	FOREIGN KEY(kodeKortek, kodeKab_Kota, kodeProv) REFERENCES kortek_zonaMerah(kodeKortek, kodeKab_Kota, kodeProv)
-		ON UPDATE CASCADE
-		ON DELETE CASCADE
-	);
 CREATE TABLE PCL(
 	kodePencacah VARCHAR(10),
 	kode_pengawas VARCHAR(10),
@@ -99,13 +88,12 @@ CREATE TABLE Responden(
 	kodePencacah VARCHAR(10),
 	kode_pengawas VARCHAR(10),
 	kodeKortek VARCHAR(10),
-	kode_pencacahKortek VARCHAR(10),
 	kodeNoUrutRTS VARCHAR(12) NOT NULL,
 	PRIMARY KEY(kodeNoUrutResponden, kodeBlokSensus, kodeKab_Kota, kodeProv),
-	FOREIGN KEY(kodeKortek, kode_pencacahKortek) REFERENCES kortekPCL(kodeKortek, kode_pencacahKortek)
+	FOREIGN KEY(kodeKortek, kodeKab_Kota, kodeProv) REFERENCES kortek_zonaMerah(kodeKortek, kodeKab_Kota, kodeProv)
 		ON UPDATE CASCADE
 		ON DELETE NO ACTION,
-	FOREIGN KEY(kodePencacah, kode_pengawas) REFERENCES PCL(kodePencacah, kode_pengawas)
+	FOREIGN KEY(kodePencacah, kode_pengawas, kodeKab_Kota, kodeProv) REFERENCES PCL(kodePencacah, kode_pengawas, kodeKab_Kota, kodeProv)
 		ON UPDATE CASCADE
 		ON DELETE NO ACTION,
 	FOREIGN KEY(kodeBlokSensus, kodeKab_Kota, kodeProv) REFERENCES blokSensus(kodeBlokSensus, kodeKab_Kota, kodeProv)
