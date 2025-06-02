@@ -8,7 +8,9 @@ CREATE TABLE BpsProvinsi(
 	kodeProv CHAR(2) PRIMARY KEY,
 	namaProv VARCHAR(20) NOT NULL,
 	kodeSakernas VARCHAR(45) NOT NULL,
-	FOREIGN KEY(kodeSakernas) REFERENCES BpsPusat(kodeSakernas) ON UPDATE CASCADE
+	FOREIGN KEY(kodeSakernas) REFERENCES BpsPusat(kodeSakernas) 
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
 	);
 CREATE TABLE BpsKab_Kota(
 	kodeKab_Kota CHAR(9),
@@ -16,7 +18,9 @@ CREATE TABLE BpsKab_Kota(
 	namaKab_Kota VARCHAR(20) NOT NULL,
 	kode_pengawas VARCHAR(10) NOT NULL,
 	PRIMARY KEY(kodeKab_Kota, kodeProv),
-	FOREIGN KEY(kodeProv) REFERENCES BpsProvinsi(kodeProv)ON UPDATE CASCADE
+	FOREIGN KEY(kodeProv) REFERENCES BpsProvinsi(kodeProv)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
 	);
 CREATE TABLE sls (
 	kode_ketua_sls CHAR(10) PRIMARY KEY,
@@ -28,16 +32,22 @@ CREATE TABLE kortek_zonaMerah (
 	kode_ketua_sls CHAR(10) NOT NULL,
 	namaKortek VARCHAR(10) NOT NULL,
 	PRIMARY KEY(kodeKortek, kodeKab_Kota),
-	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
-	FOREIGN KEY(kode_ketua_sls) REFERENCES sls(kode_ketua_sls)ON UPDATE CASCADE
+	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
+	FOREIGN KEY(kode_ketua_sls) REFERENCES sls(kode_ketua_sls)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL
 	);
 CREATE TABLE PML(
 	kode_pengawas VARCHAR(10),
 	kodeKab_Kota CHAR(9),
 	nama_pengawas VARCHAR(10) NOT NULL,
 	nomor_ketua_sls CHAR(10) NOT NULL,
-	PRIMARY KEY(kode_pengawas, kodeKab_Kota)ON UPDATE CASCADE,
-	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE
+	PRIMARY KEY(kode_pengawas, kodeKab_Kota),
+	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
 	);
 CREATE TABLE blokSensus(
 	kodeBlokSensus CHAR(10),
@@ -46,15 +56,23 @@ CREATE TABLE blokSensus(
 	kodeKortek VARCHAR(10),
 	namaDesa_Kelurahan VARCHAR(30) NOT NULL,
 	PRIMARY KEY(kodeBlokSensus, kodeKab_Kota),
-	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
-	FOREIGN KEY(kode_pengawas) REFERENCES PML(kode_pengawas)ON UPDATE CASCADE,
-	FOREIGN KEY(kodeKortek) REFERENCES kortek_zonaMerah(kodeKortek)ON UPDATE CASCADE
+	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL,
+	FOREIGN KEY(kode_pengawas) REFERENCES PML(kode_pengawas)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL,
+	FOREIGN KEY(kodeKortek) REFERENCES kortek_zonaMerah(kodeKortek)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL
 	);
 CREATE TABLE kortekPCL(
 	kodeKortek VARCHAR(10),
 	kode_pencacahKortek VARCHAR(10),
 	PRIMARY KEY(kodeKortek, kode_pencacahKortek),
-	FOREIGN KEY(kodeKortek) REFERENCES kortek_zonaMerah(kodeKortek)ON UPDATE CASCADE
+	FOREIGN KEY(kodeKortek) REFERENCES kortek_zonaMerah(kodeKortek)
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
 	);
 CREATE TABLE PCL(
 	kodePencacah VARCHAR(10),
@@ -62,7 +80,9 @@ CREATE TABLE PCL(
 	namaPencacah VARCHAR(100)NOT NULL,
 	noUrut_responden VARCHAR(12)NOT NULL,
 	PRIMARY KEY(kodePencacah, kode_pengawas),
-	FOREIGN KEY(kode_pengawas) REFERENCES PML(kode_pengawas)ON UPDATE CASCADE
+	FOREIGN KEY(kode_pengawas) REFERENCES PML(kode_pengawas)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL
 	);
 CREATE TABLE Responden(
 	kodeNoUrutResponden VARCHAR(12),
@@ -71,8 +91,12 @@ CREATE TABLE Responden(
 	kode_pencacahKortek VARCHAR(10),
 	kodeNoUrutRTS VARCHAR(12) NOT NULL,
 	PRIMARY KEY(kodeNoUrutResponden, kodeBlokSensus),
-	FOREIGN KEY(kode_pencacahKortek) REFERENCES kortekPCL(kode_pencacahKortek)ON UPDATE CASCADE,
-	FOREIGN KEY(kodePencacah) REFERENCES PCL(kodePencacah)ON UPDATE CASCADE
+	FOREIGN KEY(kode_pencacahKortek) REFERENCES kortekPCL(kode_pencacahKortek)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL,
+	FOREIGN KEY(kodePencacah) REFERENCES PCL(kodePencacah)
+		ON UPDATE CASCADE
+		ON DELETE SET NULL
 	);
 	
 	
