@@ -43,7 +43,7 @@ CREATE TABLE PML(
 	kode_pengawas VARCHAR(10),
 	kodeKab_Kota CHAR(9),
 	kodeProv CHAR(2),
-	nama_pengawas VARCHAR(10) NOT NULL,
+	nama_pengawas VARCHAR(100) NOT NULL,
 	PRIMARY KEY(kode_pengawas, kodeKab_Kota, kodeProv),
 	FOREIGN KEY(kodeKab_Kota, kodeProv) REFERENCES BpsKab_Kota(kodeKab_Kota, kodeProv)
 		ON UPDATE CASCADE
@@ -53,8 +53,8 @@ CREATE TABLE blokSensus(
 	kodeBlokSensus CHAR(10),
 	kodeKab_Kota CHAR(9),
 	kodeProv CHAR(2),
-	kode_pengawas VARCHAR(10),
-	kodeKortek VARCHAR(10),
+	kode_pengawas VARCHAR(10) NULL,
+	kodeKortek VARCHAR(10) NULL,
 	namaDesa_Kelurahan VARCHAR(30) NOT NULL,
 	PRIMARY KEY(kodeBlokSensus, kodeKab_Kota, kodeProv),
 	FOREIGN KEY(kodeKab_Kota, kodeProv) REFERENCES BpsKab_Kota(kodeKab_Kota, kodeProv)
