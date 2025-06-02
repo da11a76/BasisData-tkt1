@@ -11,9 +11,9 @@ CREATE TABLE BpsProvinsi(
 	FOREIGN KEY(kodeSakernas) REFERENCES BpsPusat(kodeSakernas) ON UPDATE CASCADE
 	);
 CREATE TABLE BpsKab_Kota(
-	kodeKab/Kota CHAR(9),
+	kodeKab_Kota CHAR(9),
 	kodeProv CHAR(2),
-	namaKab/Kota VARCHAR(20) NOT NULL,
+	namaKab_Kota VARCHAR(20) NOT NULL,
 	kode_pengawas VARCHAR(10) NOT NULL,
 	PRIMARY KEY(kodeKab_Kota, kodeProv),
 	FOREIGN KEY(kodeProv) REFERENCES BpsProvinsi(kodeProv)ON UPDATE CASCADE
@@ -28,7 +28,7 @@ CREATE TABLE kortek_zonaMerah (
 	kode_ketua_sls CHAR(10) NOT NULL,
 	namaKortek VARCHAR(10) NOT NULL,
 	PRIMARY KEY(kodeKortek, kodeKab_Kota)
-	FOREIGN KEY(kodeKab/Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
+	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
 	FOREIGN KEY(kode_ketua_sls) REFERENCES sls(kode_ketua_sls)ON UPDATE CASCADE
 	);
 CREATE TABLE PML(
@@ -44,9 +44,9 @@ CREATE TABLE blokSensus(
 	kodeKab_Kota CHAR(9),
 	kode_pengawas VARCHAR(10),
 	kodeKortek VARCHAR(10),
-	namaDesa/Kelurahan VARCHAR(30) NOT NULL,
+	namaDesa_Kelurahan VARCHAR(30) NOT NULL,
 	PRIMARY KEY(kodeBlokSensus, kodeKab_Kota),
-	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab/Kota(kodeKab_Kota)ON UPDATE CASCADE,
+	FOREIGN KEY(kodeKab_Kota) REFERENCES BpsKab_Kota(kodeKab_Kota)ON UPDATE CASCADE,
 	FOREIGN KEY(kode_pengawas) REFERENCES PML(kode_pengawas)ON UPDATE CASCADE,
 	FOREIGN KEY(kodeKortek) REFERENCES kortek_zonaMerah(kodeKortek)ON UPDATE CASCADE
 	);
