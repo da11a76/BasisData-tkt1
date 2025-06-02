@@ -44,7 +44,6 @@ CREATE TABLE PML(
 	kodeKab_Kota CHAR(9),
 	kodeProv CHAR(2),
 	nama_pengawas VARCHAR(10) NOT NULL,
-	nomor_ketua_sls CHAR(10) NOT NULL,
 	PRIMARY KEY(kode_pengawas, kodeKab_Kota, kodeProv),
 	FOREIGN KEY(kodeKab_Kota, kodeProv) REFERENCES BpsKab_Kota(kodeKab_Kota, kodeProv)
 		ON UPDATE CASCADE
