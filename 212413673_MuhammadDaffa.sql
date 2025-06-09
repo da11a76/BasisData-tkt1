@@ -1,3 +1,5 @@
+CREATE schema sakernas;
+use schema sakernas;
 CREATE TABLE BpsPusat(
 	kodeSakernas VARCHAR(45) PRIMARY KEY,
 	idPusat INTEGER NOT NULL,
